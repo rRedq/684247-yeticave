@@ -30,7 +30,7 @@ $user_avatar = 'img/user.jpg';
 
         <?php if($is_auth==true):?>
          <div class="user-menu__image">
-         <img src=<?php echo"$user_avatar";?> width="40" height="40" alt="Ïîëüçîâàòåëü"">
+         <img src=<?php echo"$user_avatar";?> width="40" height="40" alt="ĞŸĞ¾Ğ»ÑŒĞ·Ğ¾Ğ²Ğ°Ñ‚ĞµĞ»ÑŒ">
          </div>
         <div class="user-menu__logged">
         <p><?php echo"$user_name";?></p>
