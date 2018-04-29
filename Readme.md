@@ -1,6 +1,6 @@
 ﻿# Личный проект «YetiCave»
 
-* Студент: [Андрей Сучков] (https://up.htmlacademy.ru/php/5/user/684247).
+* Студент: [Андрей Сучков](https://up.htmlacademy.ru/php/5/user/684247).
 * Наставник: Игорь Закиров.
 
 ---
