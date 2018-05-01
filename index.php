@@ -149,33 +149,15 @@ $table = [
 <footer class="main-footer">
 <?php
 $categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
-	
-$index = 0;
-$num_count = count($categories);
+
 ?>
     <nav class="nav">
         <ul class="nav__list container">
-		<?php while ($index<$num_count):?>
+		<?php foreach ($categories as $value):?>
             <li class="nav__item">
-                <a href="all-lots.html"><?=$categories[$index];?></a>
+                <a href="all-lots.html"><?=$value ;?></a>
             </li>
-            <li class="nav__item">
-                <a href="all-lots.html"></a>
-            </li>
-            <li class="nav__item">
-                <a href="all-lots.html"></a>
-            </li>
-            <li class="nav__item">
-                <a href="all-lots.html"></a>
-            </li>
-            <li class="nav__item">
-                <a href="all-lots.html"></a>
-            </li>
-            <li class="nav__item">
-                <a href="all-lots.html"></a>
-            </li>
-	    <?php $index = $index + 1; ?>
-	    <?php endwhile; ?>
+	    <?php endforeach; ?>
         </ul>
     </nav>
     <div class="main-footer__bottom container">
