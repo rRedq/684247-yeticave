@@ -94,19 +94,16 @@ $table = [
 ];
 ?>
 <?php
-function sum($text) {  
- $text = ceil($text);
+function price_decor($price) {  
+ $text = ceil($price);
 
-  if ($text > 1000) {
-	  $text = number_format($text, 0, ',', ' ');	  
+  if ($price > 1000) {
+	  $price = number_format($price, 0, ',', ' ');	  
   } 
   
-  $text .= " Р";
-  return $text;
+  $price .= " Р";
+  return $price;
 }
- $short_text = sum($item['price']);
- 
- print($short_text);
 ?>
     <section class="promo">
         <h2 class="promo__title">Нужен стафф для катки?</h2>
@@ -148,7 +145,7 @@ function sum($text) {
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-							<span class="lot__cost"><?=sum($item['price']); ?></span>
+							<span class="lot__cost"><?=price_decor($item['price']); ?></span>
                         </div>
                         <div class="lot__timer timer">
 
@@ -164,33 +161,15 @@ function sum($text) {
 <footer class="main-footer">
 <?php
 $categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
-	
-$index = 0;
-$num_count = count($categories);
+
 ?>
     <nav class="nav">
         <ul class="nav__list container">
-		<?php while ($index<$num_count):?>
+		<?php foreach ($categories as $value):?>
             <li class="nav__item">
-                <a href="all-lots.html"><?=$categories[$index];?></a>
+                <a href="all-lots.html"><?=$value ;?></a>
             </li>
-            <li class="nav__item">
-                <a href="all-lots.html"></a>
-            </li>
-            <li class="nav__item">
-                <a href="all-lots.html"></a>
-            </li>
-            <li class="nav__item">
-                <a href="all-lots.html"></a>
-            </li>
-            <li class="nav__item">
-                <a href="all-lots.html"></a>
-            </li>
-            <li class="nav__item">
-                <a href="all-lots.html"></a>
-            </li>
-	    <?php $index = $index + 1; ?>
-	    <?php endwhile; ?>
+	    <?php endforeach; ?>
         </ul>
     </nav>
     <div class="main-footer__bottom container">
