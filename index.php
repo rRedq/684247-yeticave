@@ -93,6 +93,21 @@ $table = [
     ]
 ];
 ?>
+<?php
+function sum($text) {  
+ $text = ceil($text);
+
+  if ($text > 1000) {
+	  $text = number_format($text, 0, ',', ' ');	  
+  } 
+  
+  $text .= " Р";
+  return $text;
+}
+ $short_text = sum($item['price']);
+ 
+ print($short_text);
+?>
     <section class="promo">
         <h2 class="promo__title">Нужен стафф для катки?</h2>
         <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
@@ -133,7 +148,7 @@ $table = [
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost"><?=$item['price']; ?><b class="rub">р</b></span>
+                            <?=sum($item['price']); ?>
                         </div>
                         <div class="lot__timer timer">
 
