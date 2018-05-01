@@ -148,7 +148,7 @@ function sum($text) {
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <?=sum($item['price']); ?>
+							<span class="lot__cost"><?=sum($item['price']); ?></span>
                         </div>
                         <div class="lot__timer timer">
 
