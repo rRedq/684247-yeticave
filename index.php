@@ -4,6 +4,7 @@ $is_auth = (bool) rand(0, 1);
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
 ?>
+<?date_default_timezone_set('Europe/Moscow')?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -148,6 +149,13 @@ function price_decor($price) {
 							<span class="lot__cost"><?=price_decor($item['price']); ?></span>
                         </div>
                         <div class="lot__timer timer">
+						    <?
+							$end_ts = strtotime(tomorrow);
+							$ts_diff = $end_ts - time();
+							$hours = floor($ts_diff / 3600);
+							$minutes = floor(($ts_diff % 3600) / 60);
+							print ("Осталось $hours:$minutes")
+						    ?>
 
                         </div>
                     </div>
