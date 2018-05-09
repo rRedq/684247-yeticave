@@ -20,4 +20,10 @@ function include_template($tamplate, $data) {
 		echo '';
 	}
 }
-?>
+
+function show_timer(int $end_ts) {
+    $ts_diff = $end_ts - time();
+    $hours = floor($ts_diff / 3600);
+    $minutes = floor(($ts_diff % 3600) / 60);
+    return ("Осталось $hours:$minutes");
+}
