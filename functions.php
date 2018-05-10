@@ -20,6 +20,7 @@ function include_template($tamplate, $data) {
 		echo '';
 	}
 }
+?>
 
 function show_timer(int $end_ts) {
     $ts_diff = $end_ts - time();
