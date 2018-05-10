@@ -8,11 +8,11 @@ create table lot (
     date_end date,
     step_bet int,
     categories_id int,
-    user_id int,
-    user_id int,
+    user_win_id int,
+    user_author_id int,
     foreign key(categories_id) references categories(categories_id),
-    foreign key(user_id) references user(user_id),
-    foreign key(user_id) references user(user_id)
+    foreign key(user_win_id) references user(user_id),
+    foreign key(user_author_id) references user(user_id)
 
 );
 create table categories (
@@ -42,7 +42,7 @@ create unique index ui_user_email on user(email);
 create unique index ui_user_name on user(name);
 create fulltext index i_lot_name on lot(lot_name);
 create index i_lot_categories on lot(categories_id);
-create index lot_win on lot(user_id, date_end);
+create index lot_win on lot(user_win_id, date_end);
 create fulltext index i_lot_description on lot(description_lot);
 create fulltext index i_lot_name on lot(lot_name);
 create index i_user_email on user(email);
