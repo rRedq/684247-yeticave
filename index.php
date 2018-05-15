@@ -8,7 +8,7 @@ $link = mysqli_connect('localhost', 'root', '', 'schema')
 $sql = 'SELECT * FROM categories';
 $result = mysqli_query($link, $sql);
 
-$sql_table = "SELECT  lot_name,start_price,image, categories_id FROM lot";
+$sql_table = "SELECT * FROM lot as c left join categories as u on c.categories_id = u.categories_id";
 $result_table = mysqli_query($link, $sql_table);
 
 mysqli_close($link);
