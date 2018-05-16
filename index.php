@@ -5,7 +5,7 @@ require_once("functions.php");
 
 $link = mysqli_connect('localhost', 'root', '', 'schema')
     or die ('Ошибка ' . mysqli_error($link));
-$sql = 'SELECT * FROM categories';
+$sql = 'SELECT categories_id, categories_name, css_class FROM categories';
 $result = mysqli_query($link, $sql);
 
 $sql_table = "SELECT * FROM lot as c left join categories as u on c.categories_id = u.categories_id";
@@ -21,7 +21,9 @@ $is_auth = (bool) rand(0, 1);
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
 
-$page_content = include_template('templates/index.php', ['table'=> $table]);
+$page_content = include_template('templates/index.php', [
+    'table'=> $table,
+    'categories' => $categories]);
 $layout_content = include_template('templates/layout.php',  [
 	'content' => $page_content,
     'categories' => $categories,

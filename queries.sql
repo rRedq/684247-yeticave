@@ -1,22 +1,28 @@
-﻿insert into categories(categories_id, categories_name) values
-    (1, 'Доски и лыжи'),
-    (null, 'Крепления'),
-    (null, 'Ботинки'),
-    (null, 'Одежда'),
-    (null, 'Инструменты'),
-    (null, 'Разное');
+﻿insert into categories(categories_id, categories_name, css_class) values
+    (1, 'Доски и лыжи', 'promo__item--boards'),
+    (null, 'Крепления', 'promo__item--attachment'),
+    (null, 'Ботинки', 'promo__item--boots'),
+    (null, 'Одежда', 'promo__item--clothing'),
+    (null, 'Инструменты', 'promo__item--tools'),
+    (null, 'Разное', 'promo__item--other');
 
 insert into user(user_id, date_registration, email, name, password, avatar, contacts) values
     (1, '2018-05-06 05:31:22', 'rogov@gmail.com' ,'Василий', 'rogovvasya', null, null),
     (null, '2015-03-06', 'katya123@mail.ru', 'Катя', '151713', null, null );
 
 insert into lot(lot_id, date_start, lot_name, description_lot, image, start_price, date_end, step_bet, categories_id, user_win_id, user_author_id) values
-    (1, '2018-05-06 05:31:22', 'Лыжный ботинок', 'Лыжный ботинок, но один', null, 100, '2018-08-31', 50, 3, 1, 2),
-    (null, '2018-05-03 00:11:01', 'Сноуборд', 'Красный сноуборд', null, 2500, '2018-09-13', 50, 1, 2, 1);
+    (1, null, '2014 Rossignol District Snowboard', null, 'img/lot-1.jpg', 10999, null, 50, 1, null, null),
+    (null, null, 'DC Ply Mens 2016/2017 Snowboard', null, 'img/lot-2.jpg', 159999, null, null, 1, null, null),
+    (null, null, 'Крепления Union Contact Pro 2015 года размер L/XL', null, 'img/lot-3.jpg', 8000, null, null, 2, null, null),
+    (null, null, 'Ботинки для сноуборда DC Mutiny Charocal', null, 'img/lot-4.jpg', 10999, null, 50, 3, null, null),
+    (null, null, 'Куртка для сноуборда DC Mutiny Charocal', null, 'img/lot-5.jpg', 7500, null, null, 4, null, null),
+    (null, null, 'Маска Oakley Canopy', null, 'img/lot-6.jpg', 5400, null, null, 6, null, null);
 
 insert into rate(rate_id, date_rate, summa, user_id, lot_id) values
     (1, '2018-06-17 05:13:17', 3000, 2, 1),
     (null, '2018-06-19 05:13:17', 3500, 1, 2);
+
+
 
 /*получить все категории*/
 select categories_name from categories

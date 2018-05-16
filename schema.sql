@@ -17,7 +17,8 @@ create table lot (
 );
 create table categories (
     categories_id int auto_increment primary key,
-    categories_name char(64)
+    categories_name char(64),
+    css_class varchar(128)
 );
 create table rate (
     rate_id int auto_increment primary key,
