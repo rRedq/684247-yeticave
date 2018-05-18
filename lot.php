@@ -1,9 +1,7 @@
 <?php
 
 require_once ("init.php");
-
-$sql = 'SELECT categories_id, categories_name, css_class FROM categories';
-$result = mysqli_query($link, $sql);
+require_once ("data_sql.php");
 
 if (!isset ($_GET['id'])){
     exit('404');
@@ -18,7 +16,7 @@ mysqli_stmt_execute($lot_stmt);
 $result_lot = mysqli_stmt_get_result($lot_stmt);
 
 $lot = mysqli_fetch_all($result_lot, MYSQLI_ASSOC);
-$categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$categories = get_all_categories($link);
 
 $is_auth = (bool) rand(0, 1);
 
