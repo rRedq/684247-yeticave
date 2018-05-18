@@ -1,18 +1,18 @@
 <?php foreach ($lot as $value):?>
 <section class="lot-item container">
-    <h2><?=$value['lot_name'];?></h2>
+    <h2><?=htmlspecialchars($value['lot_name']);?></h2>
     <div class="lot-item__content">
         <div class="lot-item__left">
             <div class="lot-item__image">
                 <img src="<?=$value['image'];?>" width="730" height="548" alt="Сноуборд">
             </div>
             <p class="lot-item__category">Категория: <span><?=$value['categories_name'];?></span></p>
-            <p class="lot-item__description"><?=$value['lot_description'];?></p>
+            <p class="lot-item__description"><?=htmlspecialchars($value['description_lot']);?></p>
         </div>
         <div class="lot-item__right">
             <div class="lot-item__state">
                 <div class="lot-item__timer timer">
-                    <?= show_timer(strtotime ('tomorrow')) ?>
+                    <?= show_timer(strtotime ('date_end')) ?>
                 </div>
                 <div class="lot-item__cost-state">
                     <div class="lot-item__rate">

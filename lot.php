@@ -1,33 +1,23 @@
 <?php
-date_default_timezone_set('Europe/Moscow');
 
-require_once("functions.php");
-
-$link = mysqli_connect('localhost', 'root', '', 'schema')
-or die ('Ошибка ' . mysqli_error($link));
+require_once ("init.php");
 
 $sql = 'SELECT categories_id, categories_name, css_class FROM categories';
 $result = mysqli_query($link, $sql);
-
-$sql_table = "SELECT * FROM lot as c left join categories as u on c.categories_id = u.categories_id";
-$result_table = mysqli_query($link, $sql_table);
 
 if (!isset ($_GET['id'])){
     exit('404');
 }
 
-$id = $_GET['id'];
+$lot_id = (int)$_GET['id'];
 
-$sql_lot = "SELECT * FROM lot as c LEFT JOIN categories AS u ON c.categories_id = u.categories_id
+$sql_lot = "SELECT lot_name, image,description_lot, step_bet, date_end, categories_name FROM lot as c LEFT JOIN categories AS u ON c.categories_id = u.categories_id
     WHERE lot_id = ?";
-$stmt = mysqli_prepare($link, $sql_lot);
-mysqli_stmt_bind_param($stmt, 'i',$id);
-mysqli_stmt_execute($stmt);
-$result_lot = mysqli_stmt_get_result($stmt);
-mysqli_close($link);
+$lot_stmt = db_get_prepare_stmt($link, $sql_lot, [$lot_id]);
+mysqli_stmt_execute($lot_stmt);
+$result_lot = mysqli_stmt_get_result($lot_stmt);
 
 $lot = mysqli_fetch_all($result_lot, MYSQLI_ASSOC);
-$table = mysqli_fetch_all($result_table, MYSQLI_ASSOC);
 $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 $is_auth = (bool) rand(0, 1);
@@ -38,12 +28,14 @@ $user_avatar = 'img/user.jpg';
 $lot_content = include_template ('templates/lot.php', [
     'lot'=> $lot
 ]);
-$layout_content = include_template('templates/layout.php',  [
-    'content' => $lot_content,
-    'categories' => $categories,
-    'title' => 'Лот',
-    'is_auth' => $is_auth,
-    'user_name' => $user_name,
-    'user_avatar' => $user_avatar
-]);
+ foreach ($lot as $value) {
+     $layout_content = include_template('templates/layout.php', [
+         'content' => $lot_content,
+         'categories' => $categories,
+         'title' => htmlspecialchars($value['lot_name']),
+         'is_auth' => $is_auth,
+         'user_name' => $user_name,
+         'user_avatar' => $user_avatar
+     ]);
+ }
 print ($layout_content);
