@@ -1,6 +1,6 @@
 <?php $classname = (count($errors)) ? "form--invalid" : "";?>
 <form class="form form--add-lot container <?=($classname);?>" action="add.php" method="post" enctype="multipart/form-data">
-    <h2>Добавление лота<?php var_dump($lot_id);?></h2>
+    <h2>Добавление лота</h2>
     <div class="form__container-two">
         <?php $classname = isset($errors['lot_name']) ? "form__item--invalid" : "";
         $value = isset($lot['lot_name']) ? $lot['lot_name'] : ""; ?>
