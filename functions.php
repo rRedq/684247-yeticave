@@ -27,3 +27,8 @@ function show_timer(int $end_ts) {
     $minutes = floor(($ts_diff % 3600) / 60);
     return ("Осталось $hours:$minutes");
 }
+function validateDate($date, $format = 'Y-m-d')
+{
+    $d = Date_create_From_Format($format, $date);
+    return $d && $d->format($format) == $date;
+}
