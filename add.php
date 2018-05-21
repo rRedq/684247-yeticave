@@ -46,8 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $tmp_name = $_FILES['lot_img']['tmp_name'];
         $path = $_FILES['lot_img']['name'];
         $type_info = mime_content_type($tmp_name);
-        var_dump($_FILES['lot_img']);
-        var_dump($type_info);
 
         if ($type_info !== "image/jpeg"){
             $errors['file'] = '12';
@@ -65,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
         }
-
     if (count($errors)){
         $page_content = include_template('templates/add.php', [
             'lot' => $lot,
