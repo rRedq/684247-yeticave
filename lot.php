@@ -1,7 +1,6 @@
 <?php
 
 require_once ("init.php");
-require_once ("data_sql.php");
 
 if (!isset ($_GET['id'])){
     exit('404');

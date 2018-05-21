@@ -1,4 +1,4 @@
-<?php $classname = (count($errors)) ? "form--invalid" : "";?>
+<?php $classname = isset($errors) ? "form--invalid" : "";?>
 <form class="form form--add-lot container <?=($classname);?>" action="add.php" method="post" enctype="multipart/form-data">
     <h2>Добавление лота</h2>
     <div class="form__container-two">
@@ -30,12 +30,13 @@
         <span class="form__error"><?=$errors['description'];?></span>
     </div>
     <?php $classname = isset($lot['path']) ? "form__item--uploaded" : "";?>
+    <?php $img_lot = isset($lot['path']) ? "img/$lot[path]" : "";?>
     <div class="form__item form__item--file <?=$classname;?>">
         <label>Изображение</label>
         <div class="preview">
             <button class="preview__remove" type="button">x</button>
             <div class="preview__img">
-                <img src="img/<?=$lot['path'];?>" width="113" height="113" alt="Изображение лота">
+                <img src="<?=$img_lot;?>" width="113" height="113" alt="Изображение лота">
             </div>
         </div>
         <div class="form__input-file">

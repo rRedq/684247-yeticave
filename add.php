@@ -1,7 +1,6 @@
 <?php
 
 require_once ("init.php");
-require_once ("data_sql.php");
 
 $categories = get_all_categories($link);
 $is_auth = (bool) rand(0, 1);
@@ -14,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $required = ['lot_name', 'category', 'description', 'lot_rate', 'lot_step', 'lot_date'];
     $errors = [];
+    $errors_light = [];
 
     foreach ($lot as $key => $value) {
         if($key == 'lot_rate'){
@@ -27,16 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
         elseif ($key == 'lot_date') {
-            if (!validateDate($value)){
-                $errors[$key] = 'Не корректно задана дата';
-            }
-            elseif ((strtotime($value) - time(now)) <= 86400){
+            if ((strtotime($value) - time()) <= 86400){
                  $errors[$key] = 'Не менее 24 часов';
             }
-
         }
     }
-
     foreach ($required as $key) {
         if (empty($lot[$key])) {
             $errors[$key] = 'Заполните поле';
@@ -44,34 +39,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     if (isset($_FILES['lot_img'])){
         $tmp_name = $_FILES['lot_img']['tmp_name'];
-        $path = $_FILES['lot_img']['name'];
+        $time = time();
+        $target_path = $time . '.jpeg';
         $type_info = mime_content_type($tmp_name);
 
         if ($type_info !== "image/jpeg"){
+            $errors_light['lot_img'] = 'Неверный тип файла, добавьте файл с расширением jpeg';
         }
-        else{
-            move_uploaded_file($tmp_name, 'img/' . $path);
-            $lot['path'] = $path;
+        elseif (move_uploaded_file($tmp_name, "img/" . $target_path)){
+            $lot['path'] = $target_path;
+
+            $sql_lot = 'INSERT INTO lot (date_start, lot_name,categories_id, description_lot,start_price,step_bet,date_end, image) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)';
+            $stmt_lot = db_get_prepare_stmt($link, $sql_lot, [$lot['lot_name'], $lot['category'], $lot['description'], $lot['lot_rate'],$lot['lot_step'], $lot['lot_date'], $lot['lot_img']]);
+            $res = mysqli_stmt_execute($stmt_lot);
+            if ($res){
+                $i_id = mysqli_insert_id($link);
+                header("location: lot.php?id=" . $i_id);
+                exit;
+            }
         }
+        else {
+            $errors_light['lot_img'] = 'Не удалось сохранить файл';
         }
-    $sql_lot = 'INSERT INTO lot (date_start, lot_name,categories_id, description_lot,start_price,step_bet,date_end, image) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)';
-    $stmt_lot = db_get_prepare_stmt($link, $sql_lot, ['lot_name', 'category', 'description', 'lot_rate','lot_step','lot_date', 'path']);
+    }
+    $sql_lot = 'INSERT INTO lot (date_start, lot_name,categories_id, description_lot,start_price,step_bet,date_end) VALUES (NOW(), ?, ?, ?, ?, ?, ?)';
+    $stmt_lot = db_get_prepare_stmt($link, $sql_lot, [$lot['lot_name'], $lot['category'], $lot['description'], $lot['lot_rate'],$lot['lot_step'], $lot['lot_date']]);
     $res = mysqli_stmt_execute($stmt_lot);
     if ($res){
         $i_id = mysqli_insert_id($link);
         header("location: lot.php?id=" . $i_id);
+        exit;
     }
     if (count($errors)){
         $page_content = include_template('templates/add.php', [
             'lot' => $lot,
             'errors' => $errors,
-            'categories' => $categories
+            'categories' => $categories,
+            'errors_light' => $errors_light
         ]);
     }
-    else {
-
-    }
-
 }
 else {
 
