@@ -48,21 +48,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $type_info = mime_content_type($tmp_name);
 
         if ($type_info !== "image/jpeg"){
-            $errors['file'] = '12';
         }
         else{
             move_uploaded_file($tmp_name, 'img/' . $path);
             $lot['path'] = $path;
-
-            $sql_lot = 'INSERT INTO lot (date_start, lot_name,categories_id, description_lot,start_price,step_bet,date_end, image) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)';
-            $stmt_lot = db_get_prepare_stmt($link, $sql_lot, ['lot_name', 'category', 'description', 'lot_rate','lot_step','lot_date', 'path']);
-            $res = mysqli_stmt_execute($stmt_lot);
-            if ($res){
-                $i_id = mysqli_insert_id($link);
-                header("location: lot.php?id=" . $i_id);
-            }
         }
         }
+    $sql_lot = 'INSERT INTO lot (date_start, lot_name,categories_id, description_lot,start_price,step_bet,date_end, image) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)';
+    $stmt_lot = db_get_prepare_stmt($link, $sql_lot, ['lot_name', 'category', 'description', 'lot_rate','lot_step','lot_date', 'path']);
+    $res = mysqli_stmt_execute($stmt_lot);
+    if ($res){
+        $i_id = mysqli_insert_id($link);
+        header("location: lot.php?id=" . $i_id);
+    }
     if (count($errors)){
         $page_content = include_template('templates/add.php', [
             'lot' => $lot,
