@@ -75,7 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 else {
-
 $page_content = include_template('templates/add.php', [
     'categories' => $categories
 ]);

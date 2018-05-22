@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 function price_decor($price) {  
     $text = ceil($price);
 
