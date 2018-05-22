@@ -50,12 +50,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $res = move_uploaded_file($tmp_name, "img/" . $target_path);
             if (!$res){
                 $errors_light['lot_img'] = 'Не удалось сохранить файл';
+                $sql_lot = 'INSERT INTO lot (date_start, lot_name,categories_id, description_lot,start_price,step_bet,date_end, image) VALUES (NOW(), ?, ?, ?, ?, ?, ?, null)';
+                $stmt_lot = db_get_prepare_stmt($link, $sql_lot, [$lot['lot_name'], $lot['category'], $lot['description'], $lot['lot_rate'],$lot['lot_step'], $lot['lot_date']]);
+                $res = mysqli_stmt_execute($stmt_lot);
+                if ($res){
+                    $i_id = mysqli_insert_id($link);
+                    header("location: lot.php?id=" . $i_id);
+                    exit;
+                }
             }
             $lot['path'] = $target_path;
+            $sql_lot = 'INSERT INTO lot (date_start, lot_name,categories_id, description_lot,start_price,step_bet,date_end, image) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)';
+            $stmt_lot = db_get_prepare_stmt($link, $sql_lot, [$lot['lot_name'], $lot['category'], $lot['description'], $lot['lot_rate'],$lot['lot_step'], $lot['lot_date'], $lot['path']]);
+            $res = mysqli_stmt_execute($stmt_lot);
+            if ($res){
+                $i_id = mysqli_insert_id($link);
+                header("location: lot.php?id=" . $i_id);
+                exit;
+            }
         }
     }
-    $sql_lot = 'INSERT INTO lot (date_start, lot_name,categories_id, description_lot,start_price,step_bet,date_end, image) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)';
-    $stmt_lot = db_get_prepare_stmt($link, $sql_lot, [$lot['lot_name'], $lot['category'], $lot['description'], $lot['lot_rate'],$lot['lot_step'], $lot['lot_date'], $lot['lot_img']]);
+    $sql_lot = 'INSERT INTO lot (date_start, lot_name,categories_id, description_lot,start_price,step_bet,date_end, image) VALUES (NOW(), ?, ?, ?, ?, ?, ?, null)';
+    $stmt_lot = db_get_prepare_stmt($link, $sql_lot, [$lot['lot_name'], $lot['category'], $lot['description'], $lot['lot_rate'],$lot['lot_step'], $lot['lot_date']]);
     $res = mysqli_stmt_execute($stmt_lot);
     if ($res){
         $i_id = mysqli_insert_id($link);
