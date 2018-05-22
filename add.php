@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($type_info !== "image/jpeg"){
             $errors_light['lot_img'] = 'Неверный тип файла, добавьте файл с расширением jpeg';
         }
-        elseif (is_uploaded_file($_FILES["lot_img"]["tmp_name"])){
+        elseif (is_uploaded_file($tmp_name)){
             $res = move_uploaded_file($tmp_name, "img/" . $target_path);
             if (!$res){
                 $errors_light['lot_img'] = 'Не удалось сохранить файл';
