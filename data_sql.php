@@ -1,5 +1,5 @@
 <?php
-function  get_all_categories($link){
+function get_all_categories($link){
     $sql = 'SELECT categories_id, categories_name, css_class FROM categories';
     $result = mysqli_query($link, $sql);
     $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);

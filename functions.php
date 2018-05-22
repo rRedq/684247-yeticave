@@ -17,7 +17,7 @@ function include_template($tamplate, $data) {
 	    include($tamplate);
 	    return ob_get_clean();
 	} else {
-		echo '';
+		return '';
 	}
 }
 

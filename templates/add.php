@@ -15,8 +15,8 @@
             <label for="category">Категория</label>
             <select id="category" name="category">
                 <option disabled selected>Выберите категорию</option>
-                <?php foreach ($categories as $value):?>
-                    <option><?=$value['categories_name'];?></option>
+                <?php foreach ($categories as $category):?>
+                    <option value="<?=$category['categories_id'];?>"><?=$category['categories_name'];?></option>
                 <?php endforeach; ?>
             </select>
             <span class="form__error"><?= (isset($errors['category'])) ? $errors['category'] : '' ?></span>
@@ -30,7 +30,7 @@
         <span class="form__error"><?= (isset($errors['description'])) ? $errors['description'] : '' ?></span>
     </div>
     <?php $classname = isset($lot['path']) ? "form__item--uploaded" : "";?>
-    <?php $img_lot = isset($lot['path']) ? "img/$lot[path]" : "";?>
+    <?php $img_lot = isset($lot['path']) ? $lot['path'] : "";?>
     <div class="form__item form__item--file <?=$classname;?>">
         <label>Изображение</label>
         <div class="preview">
