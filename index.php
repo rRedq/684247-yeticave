@@ -1,7 +1,6 @@
 <?php
 
 require_once ("init.php");
-require_once ("data_sql.php");
 
 $categories = get_all_categories($link);
 $table = get_all_lots($link);

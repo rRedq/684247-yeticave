@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 function price_decor($price) {  
     $text = ceil($price);
 
@@ -17,7 +17,7 @@ function include_template($tamplate, $data) {
 	    include($tamplate);
 	    return ob_get_clean();
 	} else {
-		echo '';
+		return '';
 	}
 }
 
