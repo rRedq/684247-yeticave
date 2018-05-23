@@ -78,7 +78,7 @@ else {
 $page_content = include_template('templates/add.php', [
     'categories' => $categories
 ]);
-    }
+}
 $layout_content = include_template('templates/layout.php', [
     'content' => $page_content,
     'categories' => $categories,
