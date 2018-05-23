@@ -34,7 +34,7 @@ create table user (
     date_registration datetime,
     email char(64),
     name char(64),
-    password char(64),
+    password char(255),
     avatar char(128),
     contacts char(255)
 );

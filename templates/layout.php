@@ -26,14 +26,15 @@
         <img src= <?= $user_avatar ?> width="40" height="40" alt="Пользователь">
         </div>
         <div class="user-menu__logged">
-        <p><?=htmlspecialchars($user_name) ?></p>
+            <p><?=htmlspecialchars($user_name) ?></p>
+            <a href="login.html">Выйти</a>
         </div>     
          
 
         <?php elseif($is_auth==false):?>
         <ul class="user-menu__list">
         <li class="user-menu__item">
-        <?php echo ' <a href="#">Регистрация</a>';?>
+        <?php echo ' <a href="sign-up.php">Регистрация</a>';?>
         </li>
         <li class="user-menu__item">
         <?php echo ' <a href="#">Войти</a> ';?>
