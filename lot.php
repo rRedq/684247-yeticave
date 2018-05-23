@@ -2,8 +2,10 @@
 
 require_once ("init.php");
 
+session_start();
+
 if (!isset ($_GET['id'])){
-    exit('404');
+    exit('Ошибка 404');
 }
 
 $lot_id = (int)$_GET['id'];
@@ -17,11 +19,13 @@ $result_lot = mysqli_stmt_get_result($lot_stmt);
 $lot = mysqli_fetch_all($result_lot, MYSQLI_ASSOC);
 $categories = get_all_categories($link);
 
-$is_auth = (bool) rand(0, 1);
-
-$user_name = 'Константин';
-$user_avatar = 'img/user.jpg';
-
+$user_name = "";
+$user_avatar = "";
+if (isset($_SESSION['user'])){
+    $user = $_SESSION['user'];
+    $user_name = $user['name'];
+    $user_avatar = $user['avatar'];
+}
 $lot_content = include_template ('templates/lot.php', [
     'lot'=> $lot
 ]);
@@ -30,7 +34,6 @@ $lot_content = include_template ('templates/lot.php', [
          'content' => $lot_content,
          'categories' => $categories,
          'title' => htmlspecialchars($value['lot_name']),
-         'is_auth' => $is_auth,
          'user_name' => $user_name,
          'user_avatar' => $user_avatar
      ]);

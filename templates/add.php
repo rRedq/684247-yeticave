@@ -26,7 +26,7 @@
     $value = isset($lot['description']) ? $lot['description'] : ""; ?>
     <div class="form__item form__item--wide <?=$classname;?>">
         <label for="description">Описание</label>
-        <textarea id="description" name="description" placeholder="Напишите описание лота<"><?=$value;?></textarea>
+        <textarea id="description" name="description" placeholder="Напишите описание лота"><?=$value;?></textarea>
         <span class="form__error"><?= (isset($errors['description'])) ? $errors['description'] : '' ?></span>
     </div>
     <?php $classname = isset($lot['path']) ? "form__item--uploaded" : "";?>

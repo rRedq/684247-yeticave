@@ -2,11 +2,9 @@
 
 require_once ("init.php");
 
-$categories = get_all_categories($link);
-$is_auth = (bool) rand(0, 1);
+session_start();
 
-$user_name = 'Константин';
-$user_avatar = 'img/user.jpg';
+$categories = get_all_categories($link);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;
@@ -79,9 +77,6 @@ else {
 $layout_content = include_template('templates/layout.php', [
     'content' => $page_content,
     'categories' => $categories,
-    'title' => 'Регистрация',
-    'is_auth' => $is_auth,
-    'user_name' => $user_name,
-    'user_avatar' => $user_avatar
+    'title' => 'Регистрация'
 ]);
 print ($layout_content);

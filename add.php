@@ -2,11 +2,15 @@
 
 require_once ("init.php");
 
-$categories = get_all_categories($link);
-$is_auth = (bool) rand(0, 1);
+session_start();
 
-$user_name = 'Константин';
-$user_avatar = 'img/user.jpg';
+if (isset($_SESSION['user'])){
+
+$categories = get_all_categories($link);
+
+$user = $_SESSION['user'];
+$user_name = $user['name'];
+$user_avatar = $user['avatar'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $lot = $_POST;
@@ -83,9 +87,11 @@ $layout_content = include_template('templates/layout.php', [
     'content' => $page_content,
     'categories' => $categories,
     'title' => 'Новый лот',
-    'is_auth' => $is_auth,
     'user_name' => $user_name,
     'user_avatar' => $user_avatar
 ]);
 
 print ($layout_content);
+}else {
+    exit('Ошибка 404');
+}

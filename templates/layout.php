@@ -21,23 +21,23 @@
 
         <nav class="user-menu">
 
-        <?php if($is_auth==true):?>
+        <?php if(isset($_SESSION["user"])==true):?>
         <div class="user-menu__image">
         <img src= <?= $user_avatar ?> width="40" height="40" alt="Пользователь">
         </div>
         <div class="user-menu__logged">
             <p><?=htmlspecialchars($user_name) ?></p>
-            <a href="login.html">Выйти</a>
+            <a href="logout.php">Выйти</a>
         </div>     
          
 
-        <?php elseif($is_auth==false):?>
+        <?php elseif(isset($_SESSION['user'])==false):?>
         <ul class="user-menu__list">
         <li class="user-menu__item">
         <?php echo ' <a href="sign-up.php">Регистрация</a>';?>
         </li>
         <li class="user-menu__item">
-        <?php echo ' <a href="#">Войти</a> ';?>
+        <?php echo ' <a href="login.php">Войти</a> ';?>
         </li>
         </ul>
         <?php endif; ?>
