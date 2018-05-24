@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title><?=$title?></title>
+    <title><?=$title;?></title>
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -19,15 +19,15 @@
         </form>
         <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
         <nav class="user-menu">
-            <?php if(isset($_SESSION["user"])==true):?>
+            <?php if(isset($is_auth) == true): ?>
             <div class="user-menu__image">
-                <img src= <?= $user_avatar ?> width="40" height="40" alt="Пользователь">
+                <img src= <?=$user_avatar;?> width="40" height="40" alt="Пользователь">
             </div>
             <div class="user-menu__logged">
-                <p><?=htmlspecialchars($user_name) ?></p>
+                <p><?=htmlspecialchars($user_name);?></p>
                 <a href="logout.php">Выйти</a>
             </div>
-            <?php elseif(isset($_SESSION['user'])==false):?>
+            <?php elseif(isset($is_auth) == false): ?>
                 <ul class="user-menu__list">
                     <li class="user-menu__item">
                         <a href="sign-up.php">Регистрация</a>
@@ -41,12 +41,12 @@
     </div>
 </header>
 <main class="container">
-    <?=$content?>
+    <?=$content;?>
 </main>
 <footer class="main-footer">
     <nav class="nav">
         <ul class="nav__list container">
-            <?php foreach ($categories as $value):?>
+            <?php foreach ($categories as $value): ?>
             <li class="nav__item">
                 <a href="all-lots.html"><?=$value['categories_name'];?></a>
             </li>

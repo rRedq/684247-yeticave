@@ -2,10 +2,9 @@
 
 require_once ("init.php");
 
-session_start();
-
-if (!isset ($_GET['id'])){
-    exit('Ошибка 404');
+If (! isset($_GET['id'])) {
+    http_response_code(404);
+    die();
 }
 $lot_id = (int)$_GET['id'];
 
@@ -18,15 +17,9 @@ $result_lot = mysqli_stmt_get_result($lot_stmt);
 $lot = mysqli_fetch_all($result_lot, MYSQLI_ASSOC);
 $categories = get_all_categories($link);
 
-$user_name = "";
-$user_avatar = "";
-if (isset($_SESSION['user'])){
-    $user = $_SESSION['user'];
-    $user_name = $user['name'];
-    $user_avatar = $user['avatar'];
-}
 $lot_content = include_template ('templates/lot.php', [
-    'lot'=> $lot
+    'lot'=> $lot,
+    'is_auth' => $is_auth
 ]);
  foreach ($lot as $value) {
      $layout_content = include_template('templates/layout.php', [
@@ -34,7 +27,8 @@ $lot_content = include_template ('templates/lot.php', [
          'categories' => $categories,
          'title' => htmlspecialchars($value['lot_name']),
          'user_name' => $user_name,
-         'user_avatar' => $user_avatar
+         'user_avatar' => $user_avatar,
+         'is_auth' => $is_auth
      ]);
  }
 print ($layout_content);

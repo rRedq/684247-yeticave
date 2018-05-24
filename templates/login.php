@@ -1,4 +1,4 @@
-<?php $classname = isset($errors) ? "form--invalid" : "";?>
+<?php $classname = isset($errors) ? "form--invalid" : ""; ?>
 <form class="form container <?=($classname);?>" action="login.php" method="post" enctype="multipart/form-data">
     <h2>Вход</h2>
     <?php $classname = isset($errors['email']) ? "form__item--invalid" : "";

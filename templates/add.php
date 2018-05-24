@@ -1,4 +1,4 @@
-<?php $classname = isset($errors) ? "form--invalid" : "";?>
+<?php $classname = isset($errors) ? "form--invalid" : ""; ?>
 <form class="form form--add-lot container <?=($classname);?>" action="add.php" method="post" enctype="multipart/form-data">
     <h2>Добавление лота</h2>
     <div class="form__container-two">
@@ -6,7 +6,7 @@
         $value = isset($lot['lot_name']) ? $lot['lot_name'] : ""; ?>
         <div class="form__item <?=$classname;?>">
             <label for="lot_name">Наименование</label>
-            <input id="lot_name" type="text" name="lot_name" placeholder="Введите название лота" value="<?=$value;?>">
+            <input id="lot_name" type="text" name="lot_name" placeholder="Введите название лота" value="<?= $value;?>">
             <span class="form__error"><?= (isset($errors['lot_name'])) ? $errors['lot_name'] : '' ?></span>
         </div>
         <?php $classname = isset($errors['category']) ? "form__item--invalid" : "";

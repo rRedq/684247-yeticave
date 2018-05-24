@@ -13,21 +13,21 @@
     <div class="form__item <?=$classname;?>">
         <label for="password">Пароль*</label>
         <input id="password" type="password" name="password" placeholder="Введите пароль" >
-        <span class="form__error"><?=(isset($errors['password'])) ? $errors['password'] : '' ?></span>
+        <span class="form__error"><?= (isset($errors['password'])) ? $errors['password'] : '' ?></span>
     </div>
     <?php $classname = isset($errors['name']) ? "form__item--invalid" : "";
     $value = isset($form['name']) ? $form['name'] : ""; ?>
     <div class="form__item <?=$classname;?>">
         <label for="name">Имя*</label>
         <input id="name" type="text" name="name" placeholder="Введите имя" value="<?=$value;?>">
-        <span class="form__error"><?=(isset($errors['name'])) ? $errors['name'] : '' ?></span>
+        <span class="form__error"><?= (isset($errors['name'])) ? $errors['name'] : '' ?></span>
     </div>
     <?php $classname = isset($errors['message']) ? "form__item--invalid" : "";
     $value = isset($form['message']) ? $form['message'] : ""; ?>
     <div class="form__item <?=$classname;?>">
         <label for="message">Контактные данные*</label>
         <textarea id="message" name="message" placeholder="Напишите как с вами связаться" ><?=$value;?></textarea>
-        <span class="form__error"><?=(isset($errors['message'])) ? $errors['message'] : '' ?></span>
+        <span class="form__error"><?= (isset($errors['message'])) ? $errors['message'] : '' ?></span>
     </div>
     <?php $classname = isset($form['avatar']) ? "form__item--uploaded" : "";?>
     <?php $avatar = isset($form['avatar']) ? $form['avatar'] : "";?>
@@ -36,7 +36,7 @@
         <div class="preview">
             <button class="preview__remove" type="button">x</button>
             <div class="preview__img">
-                <img src="<?= $avatar ;?>" width="113" height="113" alt="Ваш аватар">
+                <img src="<?=$avatar;?>" width="113" height="113" alt="Ваш аватар">
             </div>
         </div>
         <div class="form__input-file">

@@ -1,6 +1,6 @@
 <?php
 function price_decor($price) {  
-    $text = ceil($price);
+    $price = ceil($price);
     if ($price > 1000) {
 	    $price = number_format($price, 0, ',', ' ');	  
     }
@@ -14,7 +14,8 @@ function include_template($tamplate, $data) {
 	    extract($data);
 	    include($tamplate);
 	    return ob_get_clean();
-	} else {
+	}
+	else {
 		return '';
 	}
 }
