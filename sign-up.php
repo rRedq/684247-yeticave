@@ -76,6 +76,6 @@ $layout_content = include_template('templates/layout.php', [
     'content' => $page_content,
     'categories' => $categories,
     'title' => 'Регистрация',
-    'is_auth' => $is_auth
+    'authenticated_user' => $authenticated_user
 ]);
 print ($layout_content);

@@ -6,15 +6,11 @@ require_once "data_sql.php";
 
 session_start();
 
-$user_name = "";
-$user_avatar = "";
 if (isset($_SESSION['user'])) {
-    $is_auth = $_SESSION['user'];
-    $user_name = $is_auth['name'];
-    $user_avatar = $is_auth['avatar'];
+    $authenticated_user = $_SESSION['user'];
 }
 else {
-    $is_auth = null;
+    $authenticated_user = null;
 }
 
 date_default_timezone_set('Europe/Moscow');

@@ -2,7 +2,7 @@
 
 require_once ("init.php");
 
-If (! isset($is_auth)) {
+If (! isset($authenticated_user)) {
     http_response_code(403);
     die();
 }
@@ -83,9 +83,7 @@ $layout_content = include_template('templates/layout.php', [
     'content' => $page_content,
     'categories' => $categories,
     'title' => 'Новый лот',
-    'user_name' => $user_name,
-    'user_avatar' => $user_avatar,
-    'is_auth' => $is_auth
+    'authenticated_user' => $authenticated_user
 ]);
 
 print ($layout_content);

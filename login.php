@@ -19,16 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = mysqli_real_escape_string($link, $form['email']);
         $sql = "SELECT * FROM user WHERE email = '$email'";
         $res = mysqli_query($link, $sql);
-        $res_user = mysqli_fetch_array($res, MYSQLI_ASSOC);
-        $user = $res_user;
-
+        $user = mysqli_fetch_array($res, MYSQLI_ASSOC);
         if (isset($user)) {
-            if (password_verify($form['password'], $user['password'])) {
-                $_SESSION['user'] = $user;
-                header("location: index.php");
-                exit;
-            }
-            else {
+            if (! password_verify($form['password'], $user['password'])) {
                 $errors['password'] = 'Неверный пароль';
             }
         }
@@ -42,6 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'errors' => $errors
         ]);
     }
+    else {
+        $_SESSION['user'] = $user;
+        header("location: index.php");
+        exit;
+    }
 }
 else {
     $page_content = include_template ('templates/login.php', [
@@ -51,6 +49,6 @@ $layout_content = include_template('templates/layout.php', [
     'content' => $page_content,
     'categories' => $categories,
     'title' => 'Вход',
-    'is_auth' => $is_auth
+    'authenticated_user' => $authenticated_user
 ]);
 print ($layout_content);

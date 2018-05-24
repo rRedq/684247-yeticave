@@ -10,7 +10,7 @@
             <p class="lot-item__description"><?=htmlspecialchars($value['description_lot']);?></p>
         </div>
         <div class="lot-item__right">
-            <?php if(isset($is_auth)==true): ?>
+            <?php if(isset($authenticated_user)==true): ?>
             <div class="lot-item__state">
                 <div class="lot-item__timer timer">
                     <?= show_timer(strtotime ('date_end')) ?>

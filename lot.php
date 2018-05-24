@@ -19,16 +19,14 @@ $categories = get_all_categories($link);
 
 $lot_content = include_template ('templates/lot.php', [
     'lot'=> $lot,
-    'is_auth' => $is_auth
+    'authenticated_user' => $authenticated_user
 ]);
  foreach ($lot as $value) {
      $layout_content = include_template('templates/layout.php', [
          'content' => $lot_content,
          'categories' => $categories,
          'title' => htmlspecialchars($value['lot_name']),
-         'user_name' => $user_name,
-         'user_avatar' => $user_avatar,
-         'is_auth' => $is_auth
+         'authenticated_user' => $authenticated_user
      ]);
  }
 print ($layout_content);
