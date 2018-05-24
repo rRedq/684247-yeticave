@@ -1,11 +1,9 @@
 <?php
 function price_decor($price) {  
     $text = ceil($price);
-
     if ($price > 1000) {
 	    $price = number_format($price, 0, ',', ' ');	  
-    } 
-  
+    }
     $price .= " Р";
     return $price;
 }

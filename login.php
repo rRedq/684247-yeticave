@@ -13,8 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $required = ['email', 'password'];
     $errors = [];
 
-
-
     foreach ($required as $field) {
         if (empty($form[$field])) {
             $errors[$field] = 'Это поле надо заполнить';
@@ -29,10 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($user)){
                 if (password_verify($form['password'], $user['password'])) {
                     $_SESSION['user'] = $user;
-                    if (isset($_SESSION['user'])){
-                        header("location: index.php");
-                        exit;
-                    }
+                    header("location: index.php");
+                    exit;
                 }
                 else {
                     $errors['password'] = 'Неверный пароль';

@@ -18,38 +18,31 @@
             <input class="main-header__search-btn" type="submit" name="find" value="Найти">
         </form>
         <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
-
         <nav class="user-menu">
-
-        <?php if(isset($_SESSION["user"])==true):?>
-        <div class="user-menu__image">
-        <img src= <?= $user_avatar ?> width="40" height="40" alt="Пользователь">
-        </div>
-        <div class="user-menu__logged">
-            <p><?=htmlspecialchars($user_name) ?></p>
-            <a href="logout.php">Выйти</a>
-        </div>     
-         
-
-        <?php elseif(isset($_SESSION['user'])==false):?>
-        <ul class="user-menu__list">
-        <li class="user-menu__item">
-        <?php echo ' <a href="sign-up.php">Регистрация</a>';?>
-        </li>
-        <li class="user-menu__item">
-        <?php echo ' <a href="login.php">Войти</a> ';?>
-        </li>
-        </ul>
-        <?php endif; ?>
-
+            <?php if(isset($_SESSION["user"])==true):?>
+            <div class="user-menu__image">
+                <img src= <?= $user_avatar ?> width="40" height="40" alt="Пользователь">
+            </div>
+            <div class="user-menu__logged">
+                <p><?=htmlspecialchars($user_name) ?></p>
+                <a href="logout.php">Выйти</a>
+            </div>
+            <?php elseif(isset($_SESSION['user'])==false):?>
+                <ul class="user-menu__list">
+                    <li class="user-menu__item">
+                        <a href="sign-up.php">Регистрация</a>
+                    </li>
+                    <li class="user-menu__item">
+                        <a href="login.php">Войти</a>
+                    </li>
+                </ul>
+            <?php endif; ?>
         </nav>
     </div>
 </header>
-
 <main class="container">
     <?=$content?>
 </main>
-
 <footer class="main-footer">
     <nav class="nav">
         <ul class="nav__list container">
@@ -96,6 +89,5 @@
         </div>
     </div>
 </footer>
-
 </body>
 </html>
