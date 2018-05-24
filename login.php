@@ -2,10 +2,9 @@
 
 require_once ("init.php");
 
-$categories = get_all_categories($link);
-
 session_start();
 
+$categories = get_all_categories($link);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;
