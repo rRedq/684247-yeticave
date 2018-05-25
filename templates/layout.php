@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title><?=$title?></title>
+    <title><?=$title;?></title>
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -18,42 +18,35 @@
             <input class="main-header__search-btn" type="submit" name="find" value="Найти">
         </form>
         <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
-
         <nav class="user-menu">
-
-        <?php if($is_auth==true):?>
-        <div class="user-menu__image">
-        <img src= <?= $user_avatar ?> width="40" height="40" alt="Пользователь">
-        </div>
-        <div class="user-menu__logged">
-            <p><?=htmlspecialchars($user_name) ?></p>
-            <a href="login.html">Выйти</a>
-        </div>     
-         
-
-        <?php elseif($is_auth==false):?>
-        <ul class="user-menu__list">
-        <li class="user-menu__item">
-        <?php echo ' <a href="sign-up.php">Регистрация</a>';?>
-        </li>
-        <li class="user-menu__item">
-        <?php echo ' <a href="#">Войти</a> ';?>
-        </li>
-        </ul>
-        <?php endif; ?>
-
+            <?php if(isset($authenticated_user) == true): ?>
+            <div class="user-menu__image">
+                <img src= <?=authenticated_user['avatar'];?> width="40" height="40" alt="Пользователь">
+            </div>
+            <div class="user-menu__logged">
+                <p><?=htmlspecialchars($authenticated_user['name']);?></p>
+                <a href="logout.php">Выйти</a>
+            </div>
+            <?php elseif(isset($authenticated_user) == false): ?>
+                <ul class="user-menu__list">
+                    <li class="user-menu__item">
+                        <a href="sign-up.php">Регистрация</a>
+                    </li>
+                    <li class="user-menu__item">
+                        <a href="login.php">Войти</a>
+                    </li>
+                </ul>
+            <?php endif; ?>
         </nav>
     </div>
 </header>
-
 <main class="container">
-    <?=$content?>
+    <?=$content;?>
 </main>
-
 <footer class="main-footer">
     <nav class="nav">
         <ul class="nav__list container">
-            <?php foreach ($categories as $value):?>
+            <?php foreach ($categories as $value): ?>
             <li class="nav__item">
                 <a href="all-lots.html"><?=$value['categories_name'];?></a>
             </li>
@@ -96,6 +89,5 @@
         </div>
     </div>
 </footer>
-
 </body>
 </html>

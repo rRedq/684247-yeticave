@@ -2,11 +2,11 @@
 
 require_once ("init.php");
 
+If (! isset($authenticated_user)) {
+    http_response_code(403);
+    die();
+}
 $categories = get_all_categories($link);
-$is_auth = (bool) rand(0, 1);
-
-$user_name = 'Константин';
-$user_avatar = 'img/user.jpg';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $lot = $_POST;
@@ -16,18 +16,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors_light = [];
 
     foreach ($lot as $key => $value) {
-        if($key == 'lot_rate'){
+        if($key == 'lot_rate') {
             if (!filter_var($value, FILTER_VALIDATE_INT)){
                 $errors[$key] = 'Только числа';
             }
         }
-        elseif ($key == 'lot_step'){
-            if (!filter_var($value, FILTER_VALIDATE_INT)){
+        elseif ($key == 'lot_step') {
+            if (!filter_var($value, FILTER_VALIDATE_INT)) {
                 $errors[$key] = 'Только числа';
             }
         }
         elseif ($key == 'lot_date') {
-            if ((strtotime($value) - time()) <= 86400){
+            if ((strtotime($value) - time()) <= 86400) {
                  $errors[$key] = 'Не менее 24 часов';
             }
         }
@@ -38,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
     $lot['path'] = "";
-    if (isset($_FILES['lot_img']) && $_FILES['lot_img']['tmp_name'] !== ""){
+    if (isset($_FILES['lot_img']) && $_FILES['lot_img']['tmp_name'] !== "") {
         $tmp_name = $_FILES['lot_img']['tmp_name'];
         $time = time();
         $target_path = 'img/' . $time . '.jpeg';
         $type_info = mime_content_type($tmp_name);
 
-        if ($type_info !== "image/jpeg"){
+        if ($type_info !== "image/jpeg") {
             $errors_light['lot_img'] = 'Неверный тип файла, добавьте файл с расширением jpeg';
         }
         else {
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     }
-    if (count($errors)){
+    if (count($errors)) {
         $page_content = include_template('templates/add.php', [
             'lot' => $lot,
             'errors' => $errors,
@@ -83,9 +83,7 @@ $layout_content = include_template('templates/layout.php', [
     'content' => $page_content,
     'categories' => $categories,
     'title' => 'Новый лот',
-    'is_auth' => $is_auth,
-    'user_name' => $user_name,
-    'user_avatar' => $user_avatar
+    'authenticated_user' => $authenticated_user
 ]);
 
 print ($layout_content);

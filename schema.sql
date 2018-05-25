@@ -13,7 +13,6 @@ create table lot (
     foreign key(categories_id) references categories(categories_id),
     foreign key(user_win_id) references user(user_id),
     foreign key(user_author_id) references user(user_id)
-
 );
 create table categories (
     categories_id int auto_increment primary key,

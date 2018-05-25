@@ -3,10 +3,6 @@
 require_once ("init.php");
 
 $categories = get_all_categories($link);
-$is_auth = (bool) rand(0, 1);
-
-$user_name = 'Константин';
-$user_avatar = 'img/user.jpg';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;
@@ -15,8 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors = [];
     $errors_light = [];
 
-    foreach ($required as $key){
-        if (empty($form[$key])){
+    foreach ($required as $key) {
+        if (empty($form[$key])) {
             $errors[$key] = 'Это поле надо заполнить';
         }
     }
@@ -36,13 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
     $form['avatar'] = "";
-    if (isset($_FILES['avatar']) && $_FILES['avatar']['tmp_name'] !== ""){
+    if (isset($_FILES['avatar']) && $_FILES['avatar']['tmp_name'] !== "") {
         $tmp_name = $_FILES['avatar']['tmp_name'];
         $time = time();
         $target_path = 'img/' . $time . '.jpeg';
         $type_info = mime_content_type($tmp_name);
 
-        if ($type_info !== "image/jpeg"){
+        if ($type_info !== "image/jpeg") {
             $errors_light['avatar'] = 'Неверный тип файла, добавьте файл с расширением jpeg';
         }
         else {
@@ -53,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     }
-    if (count($errors)){
+    if (count($errors)) {
         $page_content = include_template('templates/sign-up.php', [
             'form' => $form,
             'errors' => $errors,
@@ -80,8 +76,6 @@ $layout_content = include_template('templates/layout.php', [
     'content' => $page_content,
     'categories' => $categories,
     'title' => 'Регистрация',
-    'is_auth' => $is_auth,
-    'user_name' => $user_name,
-    'user_avatar' => $user_avatar
+    'authenticated_user' => $authenticated_user
 ]);
 print ($layout_content);
