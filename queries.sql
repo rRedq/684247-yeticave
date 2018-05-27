@@ -1,4 +1,4 @@
-﻿insert into categories(categories_id, categories_name, css_class) values
+insert into categories(categories_id, categories_name, css_class) values
     (1, 'Доски и лыжи', 'promo__item--boards'),
     (null, 'Крепления', 'promo__item--attachment'),
     (null, 'Ботинки', 'promo__item--boots'),
@@ -23,22 +23,3 @@ insert into rate(rate_id, date_rate, summa, user_id, lot_id) values
     (1, null, 12500, 1, 2),
     (null, null, 11500, 2, 2),
     (null, null, 11500, 3, 2);
-
-
-
-/*получить все категории*/
-select categories_name from categories
-/*получить самые новые, открытые лоты. Каждый лот должен включать название, стартовую цену, ссылку на изображение, цену, количество ставок, название категории;*/
-select lot_id, lot_name,start_price,image, summa, categories_id from lot, rate
-    where to_days(now()) - to_days(date_start) <= 30;
-/*показать лот по его id. Получите также название категории, к которой принадлежит лот*/
-select * from lot as c left join categories as u on c.categories_id = u.categories_id
-    where lot_id = 1;
-/*обновить название лота по его идентификатору*/
-update lot set lot_name = 'Новое имя'
-    where lot_id = '1';
-/*получить список самых свежих ставок для лота по его идентификатору*/
-select summa from rate
-    where lot_id = 1
-    order by summa desc
-    limit 0, 5;
