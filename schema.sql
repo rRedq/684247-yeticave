@@ -44,5 +44,4 @@ create fulltext index i_lot_name on lot(lot_name);
 create index i_lot_categories on lot(categories_id);
 create index lot_win on lot(user_win_id, date_end);
 create fulltext index i_lot_description on lot(description_lot);
-create fulltext index i_lot_name on lot(lot_name);
 create index i_user_email on user(email);
