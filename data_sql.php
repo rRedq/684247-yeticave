@@ -30,7 +30,6 @@ function getLotById($link, $lot_id)
 {
     $sql = "SELECT lot_name, image, description_lot, step_bet, date_end, categories_name, start_price, user_author_id FROM lot AS lot 
     LEFT JOIN categories AS cat ON cat.categories_id = lot.categories_id
-    LEFT JOIN user AS user ON lot.user_author_id = user.user_id
     WHERE lot_id = ?;";
     $stmt = db_get_prepare_stmt($link, $sql, [$lot_id]);
     mysqli_stmt_execute($stmt);
