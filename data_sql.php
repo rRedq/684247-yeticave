@@ -34,8 +34,7 @@ function getLotById($link, $lot_id)
     $stmt = db_get_prepare_stmt($link, $sql, [$lot_id]);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-    $lot = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    return ($lot);
+    return mysqli_fetch_array($result);
 }
 function getLastRate($link, $lot_id)
 {

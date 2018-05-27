@@ -26,13 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (! ctype_digit($lot_cost)) {
         $error ='Только целые числа';
     }
-    foreach ($lot as $key) {
-        if (($key['start_price'] + $key['step_bet']) > $lot_cost) {
-            $error = 'Слишком низкая ставка';
-        }
-        elseif (($max_summa + $key['step_bet']) > $lot_cost) {
-            $error = 'Слишком низная ставка';
-        }
+    if (($lot['start_price'] + $lot['step_bet']) > $lot_cost) {
+        $error = 'Слишком низкая ставка';
+    }
+    elseif (($max_summa + $lot['step_bet']) > $lot_cost) {
+        $error = 'Слишком низная ставка';
     }
     if (count($error)) {
         $lot_content = include_template('templates/lot.php', [
@@ -69,12 +67,10 @@ else {
         'users' => $users
     ]);
 }
-foreach ($lot as $value) {
-    $layout_content = include_template('templates/layout.php', [
-        'content' => $lot_content,
-        'categories' => $categories,
-        'title' => htmlspecialchars($value['lot_name']),
-        'authenticated_user' => $authenticated_user
-    ]);
-}
+$layout_content = include_template('templates/layout.php', [
+    'content' => $lot_content,
+    'categories' => $categories,
+    'title' => htmlspecialchars($lot['lot_name']),
+    'authenticated_user' => $authenticated_user
+]);
 print ($layout_content);
