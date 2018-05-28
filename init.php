@@ -15,7 +15,7 @@ else {
 
 date_default_timezone_set('Europe/Moscow');
 
-$link = mysqli_connect('localhost', 'root', '', 'schema')
+$link = mysqli_connect('localhost', 'root', '', 'schem')
 or die ('Ошибка ' . mysqli_error($link));
 
 mysqli_set_charset($link, "utf8");

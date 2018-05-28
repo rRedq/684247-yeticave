@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Добавляет разделитель между каждым третьим числом и
+ * добавляет в конце знак рубля "Р"
+ *
+ * @param float $price выражение для форматирования
+ *
+ * @return $price отформатированное выражение
+ */
 function price_decor($price)
 {
     $price = ceil($price);
@@ -8,6 +17,15 @@ function price_decor($price)
     $price .= " Р";
     return $price;
 }
+
+/**
+ * Функция шаблонизатор
+ *
+ * @param $tamplate подключаемый файл
+ * @param array $data массив данных для подключаемого файла
+ *
+ * @return подготовленный шаблон
+ */
 function include_template($tamplate, $data)
 {
 	if (file_exists($tamplate)) {
@@ -20,13 +38,31 @@ function include_template($tamplate, $data)
 		return '';
 	}
 }
+
+/**
+ * Конвертирует unix время в человекочитаемый формат
+ *
+ * @param integer $end_ts unix выражение для конвертации
+ *
+ * @return преобразованное в человекочитаемый формат выражение
+ */
 function show_timer(int $end_ts)
 {
     $ts_diff = $end_ts - time();
-    $hours = floor($ts_diff / 3600);
+    $days = floor($ts_diff / 86400);
+    $hours = floor(($ts_diff % 86400) / 3600);
     $minutes = floor(($ts_diff % 3600) / 60);
-    return ("Осталось $hours:$minutes");
+    return ("Осталось $days:$hours:$minutes");
 }
+
+/**
+ * Подготовленное выражение для поиска user_id в указанном массиве
+ *
+ * @param mysqli $link ресурс соединения
+ * @param array $userIds массив данных для поиска
+ *
+ * @return $result полученный масств со значениями user_id
+ */
 function getUsersByIds($link, array $userIds)
 {
     if (! count($userIds)) {

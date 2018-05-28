@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $required = ['lot_name', 'category', 'description', 'lot_rate', 'lot_step', 'lot_date'];
     $errors = [];
-    $errors_light = [];
 
     foreach ($lot as $key => $value) {
         if($key == 'lot_rate') {
@@ -46,22 +45,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $type_info = mime_content_type($tmp_name);
 
         if ($type_info !== "image/jpeg") {
-            $errors_light['lot_img'] = 'Неверный тип файла, добавьте файл с расширением jpeg';
+            $errors['lot_img'] = 'Неверный тип файла, добавьте файл с расширением jpeg';
         }
         else {
             if (is_uploaded_file($tmp_name) && move_uploaded_file($tmp_name, $target_path)) {
                 $lot['path'] = $target_path;
             } else {
-                $errors_light['lot_img'] = 'Не удалось сохранить файл';
+                $errors['lot_img'] = 'Не удалось сохранить файл';
             }
         }
+    }
+    else {
+        $errors = 'Не загружен файл';
     }
     if (count($errors)) {
         $page_content = include_template('templates/add.php', [
             'lot' => $lot,
             'errors' => $errors,
-            'categories' => $categories,
-            'errors_light' => $errors_light
+            'categories' => $categories
         ]);
     }
     else {

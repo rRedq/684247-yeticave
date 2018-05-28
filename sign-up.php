@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $required = ['email', 'password', 'name', 'message'];
     $errors = [];
-    $errors_light = [];
 
     foreach ($required as $key) {
         if (empty($form[$key])) {
@@ -39,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $type_info = mime_content_type($tmp_name);
 
         if ($type_info !== "image/jpeg") {
-            $errors_light['avatar'] = 'Неверный тип файла, добавьте файл с расширением jpeg';
+            $errors['avatar'] = 'Неверный тип файла, добавьте файл с расширением jpeg';
         }
         else {
             if (is_uploaded_file($tmp_name) && move_uploaded_file($tmp_name, $target_path)) {
                 $form['avatar'] = $target_path;
             } else {
-                $errors_light['avatar'] = 'Не удалось сохранить файл';
+                $errors['avatar'] = 'Не удалось сохранить файл';
             }
         }
     }
@@ -53,8 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $page_content = include_template('templates/sign-up.php', [
             'form' => $form,
             'errors' => $errors,
-            'categories' => $categories,
-            'errors_light' => $errors_light
+            'categories' => $categories
         ]);
     }
     else {
