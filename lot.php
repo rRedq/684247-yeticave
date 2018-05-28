@@ -10,6 +10,10 @@ $lot_id = (int)$_GET['id'];
 
 $categories = get_all_categories($link);
 $lot = getLotById($link, $lot_id);
+if (! isset($lot)) {
+    http_response_code(404);
+    die();
+}
 $max_summa = getMaxRateForLot($link, $lot_id);
 $rate = getLastRate($link, $lot_id);
 $rateUserIds = [];
@@ -17,8 +21,14 @@ foreach ($rate as $key) {
     // пользователи могут повторяться, таким образом уберем повторы
     $rateUserIds[$key['user_id']] = true;
 }
-$users = getUsersByIds($link, array_keys($rateUserIds));
-
+$rate_users_id = getUsersByIds($link, array_keys($rateUserIds));
+$bet_owner = "";
+if ($max_summa >= $lot['start_price']) {
+    $price = $max_summa;
+}
+else {
+$price = $lot['start_price'];
+}
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $lot_cost = $_POST['cost'];
     $error = [];
@@ -40,7 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'rate' => $rate,
             'max_summa' => $max_summa,
             'authenticated_user' => $authenticated_user,
-            'users' => $users
+            'rate_users_id' => $rate_users_id,
+            'price' => $price,
+            'bet_owner' => $bet_owner
         ]);
     }
     else {
@@ -64,7 +76,9 @@ else {
         'rate' => $rate,
         'max_summa' => $max_summa,
         'authenticated_user' => $authenticated_user,
-        'users' => $users
+        'rate_users_id' => $rate_users_id,
+        'price' => $price,
+        'bet_owner' => $bet_owner
     ]);
 }
 $layout_content = include_template('templates/layout.php', [

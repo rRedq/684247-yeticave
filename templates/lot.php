@@ -9,20 +9,20 @@
             <p class="lot-item__description"><?=htmlspecialchars($lot['description_lot']);?></p>
         </div>
         <div class="lot-item__right">
-            <?php foreach ($users as $user) :?>
-            <?php $bet_owner = intval($authenticated_user['user_id']);?>
-            <?php endforeach;?>
+            <?php foreach ($rate_users_id as $user => $value): ?>
+                <?php $owner = in_array($authenticated_user['user_id'] , $value);
+                if ($owner == true) $bet_owner = $owner; ?>
+            <?php endforeach; ?>
             <?php if (isset($authenticated_user)
                 && ($lot['user_author_id']) !== intval($authenticated_user['user_id'])
                 && strtotime($lot['date_end']) >= time()
-                && (isset($users[$bet_owner])) !== true)
-                 : ?>
+                && $bet_owner !== true)
+                 :?>
             <div class="lot-item__state">
                 <div class="lot-item__timer timer">
                     <?= show_timer(strtotime($lot['date_end'])) ;?>
                 </div>
                 <div class="lot-item__cost-state">
-                    <?php $price = $max_summa >= $lot['start_price'] ? $max_summa : $lot['start_price']; ?>
                     <div class="lot-item__rate">
                         <span class="lot-item__amount">Текущая цена</span>
                         <span class="lot-item__cost"><?=price_decor($price);?></span>
