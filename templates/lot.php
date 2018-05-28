@@ -9,7 +9,7 @@
             <p class="lot-item__description"><?=htmlspecialchars($lot['description_lot']);?></p>
         </div>
         <div class="lot-item__right">
-            <?php if ($authentication == 'access') :?>
+            <?php if ($authentication == 'access'): ?>
             <div class="lot-item__state">
                 <div class="lot-item__timer timer">
                     <?= show_timer(strtotime($lot['date_end'])) ;?>

@@ -1,3 +1,21 @@
+CREATE DATABASE schem
+DEFAULT CHARACTER SET utf8
+DEFAULT COLLATE utf8_general_ci;
+USE schem;
+create table user (
+    user_id int auto_increment primary key,
+    date_registration datetime,
+    email char(64),
+    name char(64),
+    password char(255),
+    avatar char(128),
+    contacts char(255)
+);
+create table categories (
+    categories_id int auto_increment primary key,
+    categories_name char(64),
+    css_class varchar(128)
+);
 create table lot (
     lot_id int auto_increment primary key ,
     date_start datetime,
@@ -14,11 +32,6 @@ create table lot (
     foreign key(user_win_id) references user(user_id),
     foreign key(user_author_id) references user(user_id)
 );
-create table categories (
-    categories_id int auto_increment primary key,
-    categories_name char(64),
-    css_class varchar(128)
-);
 create table rate (
     rate_id int auto_increment primary key,
     date_rate datetime,
@@ -27,15 +40,6 @@ create table rate (
     lot_id int,
     foreign key(user_id) references user(user_id),
     foreign key(lot_id) references lot(lot_id)
-);
-create table user (
-    user_id int auto_increment primary key,
-    date_registration datetime,
-    email char(64),
-    name char(64),
-    password char(255),
-    avatar char(128),
-    contacts char(255)
 );
 create unique index ui_categories_name on categories(categories_name);
 create unique index ui_user_email on user(email);
