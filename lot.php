@@ -53,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'rate' => $rate,
             'max_summa' => $max_summa,
             'authenticated_user' => $authenticated_user,
-            'rate_users_id' => $rate_users_id,
             'price' => $price,
             'bet_owner' => $bet_owner
         ]);
@@ -79,7 +78,6 @@ else {
         'rate' => $rate,
         'max_summa' => $max_summa,
         'authenticated_user' => $authenticated_user,
-        'rate_users_id' => $rate_users_id,
         'price' => $price,
         'bet_owner' => $bet_owner
     ]);
