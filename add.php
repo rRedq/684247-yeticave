@@ -6,6 +6,7 @@ If (! isset($authenticated_user)) {
     http_response_code(403);
     die();
 }
+$author = intval($authenticated_user['user_id']);
 $categories = get_all_categories($link);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -64,8 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]);
     }
     else {
-        $sql_lot = 'INSERT INTO lot (date_start, lot_name,categories_id, description_lot,start_price,step_bet,date_end, image) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?)';
-        $stmt_lot = db_get_prepare_stmt($link, $sql_lot, [$lot['lot_name'], $lot['category'], $lot['description'], $lot['lot_rate'],$lot['lot_step'], $lot['lot_date'], $lot['path']]);
+        $sql_lot = 'INSERT INTO lot (date_start, lot_name,categories_id, description_lot,start_price,step_bet,date_end, image, user_author_id) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?, ?)';
+        $stmt_lot = db_get_prepare_stmt($link, $sql_lot, [$lot['lot_name'], $lot['category'], $lot['description'], $lot['lot_rate'],$lot['lot_step'], $lot['lot_date'], $lot['path'], $author]);
         $res = mysqli_stmt_execute($stmt_lot);
         if ($res) {
             $i_id = mysqli_insert_id($link);

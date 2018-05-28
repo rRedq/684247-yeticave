@@ -1,94 +1,50 @@
-<?php foreach ($lot as $value): ?>
 <section class="lot-item container">
-    <h2><?=htmlspecialchars($value['lot_name']);?></h2>
+    <h2><?=htmlspecialchars($lot['lot_name']);?></h2>
     <div class="lot-item__content">
         <div class="lot-item__left">
             <div class="lot-item__image">
-                <img src="<?=$value['image'];?>" width="730" height="548" alt="Сноуборд">
+                <img src="<?=$lot['image'];?>" width="730" height="548" alt="Сноуборд">
             </div>
-            <p class="lot-item__category">Категория: <span><?=$value['categories_name'];?></span></p>
-            <p class="lot-item__description"><?=htmlspecialchars($value['description_lot']);?></p>
+            <p class="lot-item__category">Категория: <span><?=$lot['categories_name'];?></span></p>
+            <p class="lot-item__description"><?=htmlspecialchars($lot['description_lot']);?></p>
         </div>
         <div class="lot-item__right">
-            <?php if(isset($authenticated_user)==true): ?>
+            <?php if ($authentication == 'access') :?>
             <div class="lot-item__state">
                 <div class="lot-item__timer timer">
-                    <?= show_timer(strtotime ('date_end')) ?>
+                    <?= show_timer(strtotime($lot['date_end'])) ;?>
                 </div>
                 <div class="lot-item__cost-state">
                     <div class="lot-item__rate">
                         <span class="lot-item__amount">Текущая цена</span>
-                        <span class="lot-item__cost">10 999</span>
+                        <span class="lot-item__cost"><?=price_decor($price);?></span>
                     </div>
                     <div class="lot-item__min-cost">
-                        Мин. ставка <span><?=$value['step_bet'];?></span>
+                        Мин. ставка <span><?=price_decor($price + $lot['step_bet']);?></span>
                     </div>
                 </div>
-                <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post">
+                <?php $classname = isset($error) ? "form__item--invalid" : ""; ?>
+                <form class="lot-item__form <?=$classname;?>" action="lot.php?id=<?=$lot_id;?>" method="post" enctype="multipart/form-data">
                     <p class="lot-item__form-item">
                         <label for="cost">Ваша ставка</label>
-                        <input id="cost" type="number" name="cost" placeholder="12 000">
+                        <input id="cost" type="number" name="cost" placeholder="">
                     </p>
                     <button type="submit" class="button">Сделать ставку</button>
                 </form>
             </div>
-            <?php endif; ?>
+            <?php endif ;?>
             <div class="history">
                 <h3>История ставок (<span>10</span>)</h3>
                 <table class="history__list">
+                    <?php foreach ($rate as $key) : ?>
                     <tr class="history__item">
-                        <td class="history__name">Иван</td>
-                        <td class="history__price">10 999 р</td>
-                        <td class="history__time">5 минут назад</td>
+                        <td class="history__name"><?=$key['name'];?></td>
+                        <td class="history__price"><?=$key['summa'];?></td>
+                        <td class="history__time"><?=$key['date_rate'];?></td>
                     </tr>
-                    <tr class="history__item">
-                        <td class="history__name">Константин</td>
-                        <td class="history__price">10 999 р</td>
-                        <td class="history__time">20 минут назад</td>
-                    </tr>
-                    <tr class="history__item">
-                        <td class="history__name">Евгений</td>
-                        <td class="history__price">10 999 р</td>
-                        <td class="history__time">Час назад</td>
-                    </tr>
-                    <tr class="history__item">
-                        <td class="history__name">Игорь</td>
-                        <td class="history__price">10 999 р</td>
-                        <td class="history__time">19.03.17 в 08:21</td>
-                    </tr>
-                    <tr class="history__item">
-                        <td class="history__name">Енакентий</td>
-                        <td class="history__price">10 999 р</td>
-                        <td class="history__time">19.03.17 в 13:20</td>
-                    </tr>
-                    <tr class="history__item">
-                        <td class="history__name">Семён</td>
-                        <td class="history__price">10 999 р</td>
-                        <td class="history__time">19.03.17 в 12:20</td>
-                    </tr>
-                    <tr class="history__item">
-                        <td class="history__name">Илья</td>
-                        <td class="history__price">10 999 р</td>
-                        <td class="history__time">19.03.17 в 10:20</td>
-                    </tr>
-                    <tr class="history__item">
-                        <td class="history__name">Енакентий</td>
-                        <td class="history__price">10 999 р</td>
-                        <td class="history__time">19.03.17 в 13:20</td>
-                    </tr>
-                    <tr class="history__item">
-                        <td class="history__name">Семён</td>
-                        <td class="history__price">10 999 р</td>
-                        <td class="history__time">19.03.17 в 12:20</td>
-                    </tr>
-                    <tr class="history__item">
-                        <td class="history__name">Илья</td>
-                        <td class="history__price">10 999 р</td>
-                        <td class="history__time">19.03.17 в 10:20</td>
-                    </tr>
+                    <?php endforeach;?>
                 </table>
             </div>
         </div>
     </div>
 </section>
-<?php endforeach; ?>

@@ -19,15 +19,15 @@
         </form>
         <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
         <nav class="user-menu">
-            <?php if(isset($authenticated_user) == true): ?>
+            <?php if (isset($authenticated_user)): ?>
             <div class="user-menu__image">
-                <img src= <?=authenticated_user['avatar'];?> width="40" height="40" alt="Пользователь">
+                <img src= <?=$authenticated_user['avatar'];?> width="40" height="40" alt="Пользователь">
             </div>
             <div class="user-menu__logged">
                 <p><?=htmlspecialchars($authenticated_user['name']);?></p>
                 <a href="logout.php">Выйти</a>
             </div>
-            <?php elseif(isset($authenticated_user) == false): ?>
+            <?php elseif(!isset($authenticated_user)): ?>
                 <ul class="user-menu__list">
                     <li class="user-menu__item">
                         <a href="sign-up.php">Регистрация</a>

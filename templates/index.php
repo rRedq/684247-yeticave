@@ -28,7 +28,7 @@
                             <span class="lot__cost"><?=htmlspecialchars(price_decor($item['start_price'])); ?></span>
                         </div>
                         <div class="lot__timer timer">
-                            <?= show_timer(strtotime ('date_end')) ?>
+                            <?= show_timer(strtotime($item['date_end']));?>
                         </div>
                     </div>
                 </div>
