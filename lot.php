@@ -22,7 +22,10 @@ foreach ($rate as $key) {
     $rateUserIds[$key['user_id']] = true;
 }
 $rate_users_id = getUsersByIds($link, array_keys($rateUserIds));
-$bet_owner = "";
+$bet_owner = [];
+foreach ($rate_users_id as $key => $value){
+    $bet_owner[$value['user_id']]=$key;
+}
 if ($max_summa >= $lot['start_price']) {
     $price = $max_summa;
 }
