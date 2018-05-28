@@ -22,10 +22,16 @@ foreach ($rate as $key) {
     $rateUserIds[$key['user_id']] = true;
 }
 $rate_users_id = getUsersByIds($link, array_keys($rateUserIds));
-$bet_owner = [];
-foreach ($rate_users_id as $key => $value){
-    $bet_owner[$value['user_id']]=$key;
+if (isset($authenticated_user)
+    && ($lot['user_author_id']) !== intval($authenticated_user['user_id'])
+    && strtotime($lot['date_end']) >= time()
+    && (! isset($rate_users_id[$authenticated_user['user_id']]))) {
+    $authentication = 'access';
 }
+else {
+    $authentication = '';
+}
+
 if ($max_summa >= $lot['start_price']) {
     $price = $max_summa;
 }
@@ -51,10 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'lot' => $lot,
             'lot_id' => $lot_id,
             'rate' => $rate,
-            'max_summa' => $max_summa,
-            'authenticated_user' => $authenticated_user,
             'price' => $price,
-            'bet_owner' => $bet_owner
+            'authentication' => $authentication
         ]);
     }
     else {
@@ -76,10 +80,8 @@ else {
         'lot' => $lot,
         'lot_id' => $lot_id,
         'rate' => $rate,
-        'max_summa' => $max_summa,
-        'authenticated_user' => $authenticated_user,
         'price' => $price,
-        'bet_owner' => $bet_owner
+        'authentication' => $authentication
     ]);
 }
 $layout_content = include_template('templates/layout.php', [
